@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/screen2">
+    <ImageView
+        android:layout_width="170dp"
+        android:layout_height="170dp"
+        android:src="@drawable/stock1"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/imageView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Market and Investment"
+        android:textColor="@android:color/white"
+        android:textSize="32dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:id="@+id/txt"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Best ways for beginners to get started investing in stock market."
+        android:textColor="@android:color/white"
+        android:textSize="18dp"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/txt"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp" ></TextView>
+
+</RelativeLayout>
