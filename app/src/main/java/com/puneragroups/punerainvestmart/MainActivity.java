@@ -5,17 +5,26 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -49,6 +58,7 @@ public class MainActivity extends BaseActivity {
     private LinearLayoutManager linearLayoutManager, linearLayoutManager1;
     private myadapter adapter;
     private myadapter1 adapter1;
+    ImageView img_graph;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +71,7 @@ public class MainActivity extends BaseActivity {
         recyclerView = findViewById(R.id.recycler_view);
         stock = findViewById(R.id.stock);
         btn_returns = findViewById(R.id.btn_returns);
+        img_graph = findViewById(R.id.img_graph);
 
         progressbar.setVisibility(View.VISIBLE);
 
@@ -216,6 +227,41 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+       // img = findViewById(R.id.graphimg);
+        //img.setImageResource(R.drawable.graph);
+        //img.setMaxZoom(4f);
+        //setContentView(img);
+
+        FirebaseDatabase.getInstance().getReference().child("Graph").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                Glide.with(getApplicationContext()).
+                        load(snapshot.child("img").getValue().toString())
+                        .placeholder(R.drawable.graph)
+                        .into(img_graph);
+
+                img_graph.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(MainActivity.this,fullScreenImg.class);
+                        intent.putExtra("url",snapshot.child("img").getValue().toString());
+                        startActivity(intent);
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+
         progressbar.setVisibility(View.GONE);
     }
 
@@ -334,6 +380,8 @@ public class MainActivity extends BaseActivity {
         finishAffinity();
 
     }
+
+
 
 
 }
